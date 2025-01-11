@@ -23,9 +23,7 @@ data-totalcount-startquantity-value = <%= @products.count %>>
 
           <div class="quantity">
             <i class="fa-solid fa-minus minus"
-            data-action="click->count#substractproduct click->totalcount#substractproduct"
-            data-count-target="minusbutton"
-            data-totalcount-target="minusbutton">
+            data-action="click->count#substractproduct click->totalcount#substractproduct">
             </i>
             <p class="quantity-number"
             data-count-target="newQuantity"
@@ -34,12 +32,13 @@ data-totalcount-startquantity-value = <%= @products.count %>>
             >
             <%= product.number %></p>
             <i class="fa-solid fa-plus plus"
-            data-action="click->count#addproduct click->totalcount#addproduct"
-            data-count-target="minusbutton">
+            data-action="click->count#addproduct click->totalcount#addproduct">
             </i>
           </div>
 
           <h4 class="product-price"
+          data-totalcount-target="productprice"
+          data-totalcount-productprice-value = <%= product.price.to_i %>
           >$<%= product.price.to_i %>
           </h4>
           <i class="fa-regular fa-trash-can trash"></i>
@@ -54,7 +53,8 @@ data-totalcount-startquantity-value = <%= @products.count %>>
       data-totalcount-target="newTotalQuantity">
       <%= @products.sum(&:number) %> items
       </p>
-      <p class="first-total">$
+      <p class="first-total"
+      data-totalcount-target="subtotal">$
         <% subTotal = 0 %>
         <% @products.each do |product| %>
           <% subTotal += product.price.to_i * product.number %>
@@ -65,7 +65,8 @@ data-totalcount-startquantity-value = <%= @products.count %>>
 
     <div class="total">
       <p>Total</p>
-      <p class="total-price">$<%= subTotal %></p>
+      <p class="total-price"
+      data-totalcount-target="subtotal" >$<%= subTotal %></p>
     </div>
   </div>
 
