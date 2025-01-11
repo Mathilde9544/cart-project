@@ -1,0 +1,19 @@
+nav {
+  display: flex;
+  height: 91.92px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  display: flex;
+  width: 992px;
+  text-align: left;
+  align-items: center;
+}
+
+.logo-image {
+  width: 184.46px;
+  height: 43.92px;
+}

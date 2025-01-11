@@ -1,0 +1,73 @@
+<div class="main-container" data-controller="totalcount"
+data-totalcount-newquantity-value = <%= @products.sum(&:number) %>
+data-totalcount-startquantity-value = <%= @products.count %>>
+
+  <div class="header">
+    <h2>Cart</h2>
+    <p>Reset</p>
+  </div>
+
+  <div class="items">
+    <ul class="items-list">
+      <% @products.each do |product| %>
+        <li class="item"
+        data-controller="count"
+        data-count-quantity-value = <%= product.number %>
+        data-count-price-value = <%= product.price.to_i %>
+        data-totalcount-productquantity-value = <%= product.number %>
+         >
+          <div class="item-description">
+            <img class="product-image" src="<%= asset_url(product.image_url)%>" alt="<%=product.name%>">
+            <h5 class="product-name"><%=product.name%></h5>
+          </div>
+
+          <div class="quantity">
+            <i class="fa-solid fa-minus minus"
+            data-action="click->count#substractproduct click->totalcount#substractproduct"
+            data-count-target="minusbutton"
+            data-totalcount-target="minusbutton">
+            </i>
+            <p class="quantity-number"
+            data-count-target="newQuantity"
+            data-totalcount-target="productquantity"
+            data-totalcount-productquantity-value = <%= product.number %>
+            >
+            <%= product.number %></p>
+            <i class="fa-solid fa-plus plus"
+            data-action="click->count#addproduct click->totalcount#addproduct"
+            data-count-target="minusbutton">
+            </i>
+          </div>
+
+          <h4 class="product-price"
+          >$<%= product.price.to_i %>
+          </h4>
+          <i class="fa-regular fa-trash-can trash"></i>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="summary">
+    <div class="subtotal">
+      <p class="total-quantity"
+      data-totalcount-target="newTotalQuantity">
+      <%= @products.sum(&:number) %> items
+      </p>
+      <p class="first-total">$
+        <% subTotal = 0 %>
+        <% @products.each do |product| %>
+          <% subTotal += product.price.to_i * product.number %>
+        <% end %>
+        <%= subTotal %>
+      </p>
+    </div>
+
+    <div class="total">
+      <p>Total</p>
+      <p class="total-price">$<%= subTotal %></p>
+    </div>
+  </div>
+
+  <button class="order-btn">Place order</button>
+</div>
