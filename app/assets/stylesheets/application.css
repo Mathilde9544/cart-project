@@ -21,4 +21,9 @@
 body {
   margin: 0 auto;
   text-align: center;
+  font-family: "Open Sans", serif;
+}
+
+p {
+  color: #515767;
 }

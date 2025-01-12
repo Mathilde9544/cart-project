@@ -25,12 +25,12 @@ data-totalcount-startquantity-value = <%= @products.count %>>
             <i class="fa-solid fa-minus minus"
             data-action="click->count#substractproduct click->totalcount#substractproduct">
             </i>
-            <p class="quantity-number"
+            <h4 class="quantity-number"
             data-count-target="newQuantity"
             data-totalcount-target="productquantity"
             data-totalcount-productquantity-value = <%= product.number %>
             >
-            <%= product.number %></p>
+            <%= product.number %></h4>
             <i class="fa-solid fa-plus plus"
             data-action="click->count#addproduct click->totalcount#addproduct">
             </i>
@@ -48,27 +48,41 @@ data-totalcount-startquantity-value = <%= @products.count %>>
   </div>
 
   <div class="summary">
-    <div class="subtotal">
-      <p class="total-quantity"
-      data-totalcount-target="newTotalQuantity">
-      <%= @products.sum(&:number) %> items
-      </p>
-      <p class="first-total"
-      data-totalcount-target="subtotal">$
-        <% subTotal = 0 %>
-        <% @products.each do |product| %>
-          <% subTotal += product.price.to_i * product.number %>
-        <% end %>
-        <%= subTotal %>
-      </p>
+    <div>
+      <div class="subtotal">
+        <p class="total-quantity"
+        data-totalcount-target="newTotalQuantity">
+        <%= @products.sum(&:number) %> items
+        </p>
+        <h4 class="first-total"
+        data-totalcount-target="subtotal">$
+          <% subTotal = 0 %>
+          <% @products.each do |product| %>
+            <% subTotal += product.price.to_i * product.number %>
+          <% end %>
+          <%= subTotal %>
+        </h4>
+      </div>
+
+      <div class="slider-text">
+        <p>Move the slider to specify the discount amount</p>
+        <h4>$25</h4>
+      </div>
     </div>
 
+    <div class="slider">
+      <div class="slider-line"></div>
+      <div class="slider-circle"></div>
+    </div>
+
+    <div><hr></div>
+
     <div class="total">
-      <p>Total</p>
-      <p class="total-price"
-      data-totalcount-target="subtotal" >$<%= subTotal %></p>
+      <h4>Total</h4>
+      <h2 class="total-price"
+      data-totalcount-target="subtotal" >$<%= subTotal %></h2>
     </div>
   </div>
 
-  <button class="order-btn">Place order</button>
+  <button class="order-btn"><h5>Place order</h5></button>
 </div>
