@@ -3,7 +3,7 @@
   padding-bottom: 90px;
   display: inline-grid;
   gap: 32px;
-  
+
 }
 
 .header {
@@ -20,11 +20,13 @@
   color: #1E1E3C;
 }
 
-.header p {
+.btn-reset {
   font-size: 14px;
   font-weight: 400;
-  color: #8A93A3;
-  font-style: openSans;
+  color: #8A93A3; 
+  text-decoration: none;
+  border: none;
+  background: none;
 }
 
 .items-list {
@@ -35,7 +37,7 @@
 }
 
 .item {
-  position: relative;
+
   height: 100px;
   display: flex;
   justify-content: space-between;
@@ -44,13 +46,28 @@
   border-bottom: 1px solid #ECEFF4;
 }
 
+
+.listed-item {
+  position: relative;
+  list-style: none;
+}
+
 .trash {
-  position: absolute;
-  right: 0;
-  top: 0;
+  font-size: 20px;
   width: 20px;
   height: 20px;
   color: #C6CDD7;
+  text-decoration: none;
+}
+
+.trash-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 
@@ -59,6 +76,7 @@
   width: 400px;
   align-items: center;
 }
+
 
 .product-image {
   width: 100px;

@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   # root "posts#index"
 
 
+  post "/", to: 'products#reset', as: :reset_cart
   get "/", to:"products#index", as: :products
+  patch "/products/:id", to: "products#update", as: :update_product
   delete "products/:id", to: "products#destroy", as: :destroy
+
 end
