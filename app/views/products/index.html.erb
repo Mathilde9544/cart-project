@@ -4,7 +4,7 @@
     data-totalcount-startquantity-value = <%= @products.count %>>
 
     <div class="header">
-      <h2>Cart</h2>
+      <h1>Cart</h1>
         <%= button_to reset_cart_path, method: :post, remote: true, class: "btn btn-reset" do %>
           <p class="btn-reset">Reset</p>
         <% end %>
@@ -93,9 +93,7 @@
           <div class="slider-line"></div>
           <div class="slider-circle"></div>
         </div>
-
         <div><hr></div>
-
         <div class="total">
           <h4>Total</h4>
           <h2 class="total-price"
@@ -103,8 +101,8 @@
         </div>
       </div>
 
-      <button class="order-btn"><h5>Place order</h5></button>
-
+      <button data-action="click->totalcount#clearcart"
+      class="order-btn"><h5>Place order</h5></button>
     <% end %>
   </div>
 </div>

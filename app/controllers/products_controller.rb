@@ -29,7 +29,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.update(number: params[:number])
 
-
     respond_to do |format|
       format.turbo_stream
     end

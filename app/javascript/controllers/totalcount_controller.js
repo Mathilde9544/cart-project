@@ -75,8 +75,6 @@ export default class extends Controller {
   }
 
   checkEmptyCart() {
-    console.log(parseInt(this.newTotalQuantityTarget.innerText))
-
     const totalProductQuantity = this.productquantityTargets.reduce((sum, product) => {
       return sum + parseInt(product.innerText, 10);
     }, 0);
@@ -88,10 +86,7 @@ export default class extends Controller {
     }, 0);
 
     const cartContainer = this.element.querySelector(".main-container");
-    const emptyMessage = document.querySelector(".empty-cart-message");
-
     if (parseInt(this.newTotalQuantityTarget.innerText) === 0) {
-
         const message = document.createElement("div");
         message.className = "empty-cart-message";
         message.innerHTML = `
@@ -108,7 +103,12 @@ export default class extends Controller {
       this.element.querySelector(".items").classList.add("hidden");
       this.element.querySelector(".summary").classList.add("hidden");
       this.element.querySelector(".order-btn").classList.add("hidden");
-      this.element.querySelector(".btn-reset").classList.add("hidden");  
+      this.element.querySelector(".btn-reset").classList.add("hidden");
     }
+  }
+
+  clearcart() {
+    this.newTotalQuantityTarget.innerText = "0";
+    this.checkEmptyCart();
   }
 }
