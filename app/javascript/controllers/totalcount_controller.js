@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["newTotalQuantity", "productquantity", "productprice", "subtotal", "trash"]
+  static targets = ["newTotalQuantity", "productquantity", "productprice", "subtotal", "finaltotal"]
   static values = {
     newquantity: Number,
     startquantity: Number,
@@ -10,12 +10,10 @@ export default class extends Controller {
   }
 
   addproduct() {
-
-
+    console.log(this.subtotalTarget.innerText)
     const totalProductQuantity = this.productquantityTargets.reduce((sum, product) => {
     return sum + parseInt(product.innerText, 10) }, 0);
     this.newTotalQuantityTarget.innerText = `${totalProductQuantity} items`;
-
 
     const subtotalPrice = this.productpriceTargets.reduce((sum, productPrice, index) => {
       const quantity = parseInt(this.productquantityTargets[index].innerText, 10);
@@ -23,9 +21,10 @@ export default class extends Controller {
       return sum + price * quantity;
       }, 0);
 
-      this.subtotalTargets.forEach((subtotalTarget) => {
-        subtotalTarget.innerText = `$${subtotalPrice}`;
-      });
+    this.subtotalTargets.forEach((subtotalTarget) => {
+      subtotalTarget.innerText = `$${subtotalPrice}`;
+    });
+    this.finaltotalTarget.innerText = `$${subtotalPrice - 25}`
   }
 
   substractproduct() {
@@ -42,6 +41,7 @@ export default class extends Controller {
     this.subtotalTargets.forEach((subtotalTarget) => {
       subtotalTarget.innerText = `$${subtotalPrice}`;
     });;
+    this.finaltotalTarget.innerText = `$${subtotalPrice - 25}`
   }
 
   deleteproduct(event) {
@@ -58,7 +58,6 @@ export default class extends Controller {
     const updatedQuantity = totalProductQuantity - quantityToSubtract;
     this.newTotalQuantityTarget.innerText = `${updatedQuantity} items`;
 
-    // Update subtotal price
     const totalPrice = this.productpriceTargets.reduce((sum, productPrice, index) => {
       const quantity = parseInt(this.productquantityTargets[index].innerText, 10);
       const price = parseFloat(productPrice.getAttribute("data-totalcount-productprice-value"));
@@ -70,7 +69,46 @@ export default class extends Controller {
       subtotalTarget.innerText = `$${updatedSubtotal}`;
     });
 
-    // Remove the product element from the DOM
-    productElement.remove();
+    this.finaltotalTarget.innerText = `$${updatedSubtotal - 25}`
+
+    this.checkEmptyCart();
+  }
+
+  checkEmptyCart() {
+    console.log(parseInt(this.newTotalQuantityTarget.innerText))
+
+    const totalProductQuantity = this.productquantityTargets.reduce((sum, product) => {
+      return sum + parseInt(product.innerText, 10);
+    }, 0);
+
+    const totalPrice = this.productpriceTargets.reduce((sum, productPrice, index) => {
+      const quantity = parseInt(this.productquantityTargets[index].innerText, 10);
+      const price = parseFloat(productPrice.getAttribute("data-totalcount-productprice-value"));
+      return sum + price * quantity;
+    }, 0);
+
+    const cartContainer = this.element.querySelector(".main-container");
+    const emptyMessage = document.querySelector(".empty-cart-message");
+
+    if (parseInt(this.newTotalQuantityTarget.innerText) === 0) {
+
+        const message = document.createElement("div");
+        message.className = "empty-cart-message";
+        message.innerHTML = `
+        <div class="empty-cart">
+          <i class="fa-solid fa-box-open openbox"></i>
+          <div class="empty-cart-text">
+            <h2>The cart is empty</h2>
+            <h5>Add items from the catalog</h5>
+          </div>
+        </div>
+        `;
+        cartContainer.appendChild(message);
+
+      this.element.querySelector(".items").classList.add("hidden");
+      this.element.querySelector(".summary").classList.add("hidden");
+      this.element.querySelector(".order-btn").classList.add("hidden");
+      this.element.querySelector(".btn-reset").classList.add("hidden");  
+    }
   }
 }

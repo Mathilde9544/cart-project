@@ -23,7 +23,7 @@
 .btn-reset {
   font-size: 14px;
   font-weight: 400;
-  color: #8A93A3; 
+  color: #8A93A3;
   text-decoration: none;
   border: none;
   background: none;
@@ -238,4 +238,51 @@
   margin: 0;
   font-weight: 600;
   font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+.openbox {
+  width: 48px;
+  height: 42px;
+  font-size: 48px;
+  color: #C6CDD7;
+}
+
+.empty-cart-message {
+  display: grid;
+  margin-top: 32px;
+  height: 292px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.empty-cart {
+  text-align: center;
+}
+
+.empty-cart-text {
+  display:grid;
+  gap: 8px;
+  height: 60px;
+  margin-top: 24px;
+}
+
+.empty-cart-text h2 {
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0;
+  height: 32px;
+  color: #1E1E3C;
+}
+
+.empty-cart-text h5 {
+  font-weight: 400;
+  font-size: 14px;
+  color: #515767;
+  margin: 0;
+  height: 20px;
 }
