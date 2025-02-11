@@ -35,7 +35,6 @@
 }
 
 .item {
-
   height: 100px;
   display: flex;
   justify-content: space-between;
@@ -56,6 +55,10 @@
   height: 20px;
   color: #C6CDD7;
   text-decoration: none;
+}
+
+.trash:hover {
+  color: rgb(219, 57, 57);
 }
 
 .trash-button {
@@ -96,16 +99,19 @@
   border-radius: 6px;
 }
 
-.minus {
+.minus, .plus {
   width: 24px;
   font-size: small;
   color: #1E1E3C;
 }
 
-.plus {
-  width: 24px;
-  font-size: small;
-  color: #1E1E3C;
+.minus-div, .plus-div {
+  height: 24px;
+}
+
+.minus-div:hover, .plus-div:hover {
+  background-color: rgb(222, 196, 196);
+  border-radius: 5px;
 }
 
 .quantity-number {

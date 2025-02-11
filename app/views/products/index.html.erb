@@ -37,18 +37,24 @@
                 </div>
 
                 <div class="quantity">
-                  <i class="fa-solid fa-minus minus"
-                  data-action="click->count#substractproduct click->totalcount#substractproduct">
-                  </i>
-                  <h4 class="quantity-number"
-                  data-count-target="newQuantity"
-                  data-totalcount-target="productquantity"
-                  data-totalcount-productquantity-value = <%= product.number %>
-                  >
-                  <%= product.number %></h4>
-                  <i class="fa-solid fa-plus plus"
-                  data-action="click->count#addproduct click->totalcount#addproduct">
-                  </i>
+                  <div class="minus-div">
+                    <i class="fa-solid fa-minus minus"
+                    data-action="click->count#substractproduct click->totalcount#substractproduct">
+                    </i>
+                  </div>
+                  <div>
+                    <h4 class="quantity-number"
+                    data-count-target="newQuantity"
+                    data-totalcount-target="productquantity"
+                    data-totalcount-productquantity-value = <%= product.number %>
+                    >
+                    <%= product.number %></h4>
+                  </div>
+                  <div class="plus-div">
+                    <i class="fa-solid fa-plus plus"
+                    data-action="click->count#addproduct click->totalcount#addproduct">
+                    </i>
+                  </div>
                 </div>
 
                 <h4 class="product-price"
