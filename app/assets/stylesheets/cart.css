@@ -5,6 +5,12 @@
   gap: 32px;
 }
 
+#cart-content {
+  display: flex;
+  flex-direction: column;
+  gap:32px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -129,13 +135,14 @@
 }
 
 .summary {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   height: 191px;
   border: 1px solid #ECEFF4;
   border-radius: 8px;
   padding: 16px;
-  column-gap: 12px;
+  box-sizing: border-box
 }
 
 .summary p {
@@ -153,6 +160,7 @@
   border-top: 1px;
   height: 1px;
   width: 736px;
+  margin: 0px;
 }
 
 .subtotal {

@@ -10,56 +10,58 @@
         <% end %>
     </div>
 
-    <% if @products.count == 0 %>
-      <div class="empty-cart-message">
-        <div class="empty-cart">
-          <i class="fa-solid fa-box-open openbox"></i>
-          <div class="empty-cart-text">
-            <h2>The cart is empty</h2>
-            <h5>Add items from the catalog</h5>
+    <div id="cart-content">
+      <% if @products.count == 0 %>
+        <div class="empty-cart-message">
+          <div class="empty-cart">
+            <i class="fa-solid fa-box-open openbox"></i>
+            <div class="empty-cart-text">
+              <h2>The cart is empty</h2>
+              <h5>Add items from the catalog</h5>
+            </div>
           </div>
         </div>
-      </div>
-    <% else %>
-      <div class="items">
-        <ul class="items-list">
-          <%= render @products %>
-        </ul>
-      </div>
+      <% else %>
+        <div class="items">
+          <ul class="items-list">
+            <%= render @products %>
+          </ul>
+        </div>
 
-      <div class="summary" id="summary">
-        <div>
-          <div class="subtotal">
-            <p class="total-quantity" id="totalcount"
-            data-totalcount-target="newTotalQuantity">
-            <%= @products.sum(&:number) %> items
-            </p>
-            <h4 class="first-total" id="totalPrice"
-            data-totalcount-target="subtotal">
-            <% subTotal = @products.sum { |product| product.price.to_i * product.number.to_i } %>
-              $<%= subTotal %>
-            </h4>
+        <div class="summary" id="summary">
+          <div>
+            <div class="subtotal">
+              <p class="total-quantity" id="totalcount"
+              data-totalcount-target="newTotalQuantity">
+              <%= @products.sum(&:number) %> items
+              </p>
+              <h4 class="first-total" id="totalPrice"
+              data-totalcount-target="subtotal">
+              <% subTotal = @products.sum { |product| product.price.to_i * product.number.to_i } %>
+                $<%= subTotal %>
+              </h4>
+            </div>
+
+            <div class="slider-text">
+              <p>Move the slider to specify the discount amount</p>
+              <h4>$25</h4>
+            </div>
           </div>
 
-          <div class="slider-text">
-            <p>Move the slider to specify the discount amount</p>
-            <h4>$25</h4>
+          <div class="slider">
+            <div class="slider-line"></div>
+            <div class="slider-circle"></div>
+          </div>
+          <div><hr></div>
+          <div class="total">
+            <h4>Total</h4>
+            <h2 class="total-price" id="cart-total totalPrice">$<%= subTotal - 25 %></h2>
           </div>
         </div>
 
-        <div class="slider">
-          <div class="slider-line"></div>
-          <div class="slider-circle"></div>
-        </div>
-        <div><hr></div>
-        <div class="total">
-          <h4>Total</h4>
-          <h2 class="total-price" id="cart-total totalPrice">$<%= subTotal - 25 %></h2>
-        </div>
-      </div>
-
-      <button data-action="click->totalcount#clearcart"
-      class="order-btn"><h5>Place order</h5></button>
-    <% end %>
+        <button data-action="click->totalcount#clearcart"
+        class="order-btn"><h5>Place order</h5></button>
+      <% end %>
+    </div>
   </div>
 </div>

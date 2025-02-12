@@ -41,10 +41,14 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.remove(ActionView::RecordIdentifier.dom_id(@product)),
-          turbo_stream.replace("summary", partial: "products/update_total", locals: { products: @products })
-        ]
+        if @products.empty?
+          render turbo_stream: turbo_stream.replace("cart-content", partial: "products/empty_cart")
+        else
+          render turbo_stream: [
+            turbo_stream.remove(ActionView::RecordIdentifier.dom_id(@product)),
+            turbo_stream.replace("summary", partial: "products/update_total", locals: { products: @products })
+          ]
+        end
       end
     end
   end
