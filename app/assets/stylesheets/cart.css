@@ -107,6 +107,9 @@
 
 .minus-div, .plus-div {
   height: 24px;
+  border:none;
+  background-color: transparent;
+  padding: 0;
 }
 
 .minus-div:hover, .plus-div:hover {

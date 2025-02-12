@@ -4,13 +4,48 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
+  def substract_product
+    @product = Product.find(params[:id])
+    @product.decrement!(:number) if @product.number > 1
+    @products = Product.all
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace(ActionView::RecordIdentifier.dom_id(@product), partial: 'products/product', locals: { product: @product }),
+          turbo_stream.replace("summary", partial: "products/update_total", locals: { products: @products }),
+        ]
+      end
+    end
+  end
+
+  def add_product
+    @product = Product.find(params[:id])
+    @product.increment!(:number)
+    @products = Product.all
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace(ActionView::RecordIdentifier.dom_id(@product), partial: 'products/product', locals: { product: @product }),
+          turbo_stream.replace("summary", partial: "products/update_total", locals: { products: @products }),
+        ]
+      end
+    end
+  end
+
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
     @products = Product.all
 
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove(ActionView::RecordIdentifier.dom_id(@product)),
+          turbo_stream.replace("summary", partial: "products/update_total", locals: { products: @products })
+        ]
+      end
     end
   end
 
@@ -26,13 +61,10 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find(params[:id])
-    @product.update(number: params[:number])
+    @products = Product.all
 
     respond_to do |format|
       format.turbo_stream
     end
-
-    redirect_to products_path
   end
 end

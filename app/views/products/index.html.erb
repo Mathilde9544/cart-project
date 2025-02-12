@@ -1,7 +1,7 @@
 <div data-controller="totalcount">
   <div class="main-container"
-    data-totalcount-newquantity-value = <%= @products.sum(&:number) %>
-    data-totalcount-startquantity-value = <%= @products.count %>>
+    data-totalcount-newquantity-value = <%= @products.sum { |product| product.number.to_i } %>
+    data-totalcount-startquantity-value = <%= @products.count.to_i %>>
 
     <div class="header">
       <h1>Cart</h1>
@@ -23,69 +23,21 @@
     <% else %>
       <div class="items">
         <ul class="items-list">
-          <% @products.each do |product| %>
-            <li id="<%= dom_id(product) %>" class="listed-item"
-            data-controller="count"
-            data-count-product-id-value="<%= product.id %>"
-            data-count-quantity-value = <%= product.number %>
-            data-count-price-value = <%= product.price.to_i %>
-            data-totalcount-productquantity-value = <%= product.number %>>
-              <div class="item">
-                <div class="item-description">
-                  <img class="product-image" src="<%= asset_url(product.image_url)%>" alt="<%=product.name%>">
-                  <h5 class="product-name"><%=product.name%></h5>
-                </div>
-
-                <div class="quantity">
-                  <div class="minus-div">
-                    <i class="fa-solid fa-minus minus"
-                    data-action="click->count#substractproduct click->totalcount#substractproduct">
-                    </i>
-                  </div>
-                  <div>
-                    <h4 class="quantity-number"
-                    data-count-target="newQuantity"
-                    data-totalcount-target="productquantity"
-                    data-totalcount-productquantity-value = <%= product.number %>
-                    >
-                    <%= product.number %></h4>
-                  </div>
-                  <div class="plus-div">
-                    <i class="fa-solid fa-plus plus"
-                    data-action="click->count#addproduct click->totalcount#addproduct">
-                    </i>
-                  </div>
-                </div>
-
-                <h4 class="product-price"
-                data-totalcount-target="productprice"
-                data-totalcount-productprice-value = <%= product.price.to_i %>
-                >$<%= product.price.to_i %>
-                </h4>
-              </div>
-              <%= button_to destroy_path(product), method: :delete, remote: true, class:"trash trash-button p-0 border-0 bg-transparent" do %>
-                <i data-action="click->totalcount#deleteproduct"
-                class="fa-regular fa-trash-can trash"></i>
-              <% end %>
-            </li>
-          <% end %>
+          <%= render @products %>
         </ul>
       </div>
 
-      <div class="summary">
+      <div class="summary" id="summary">
         <div>
           <div class="subtotal">
-            <p class="total-quantity"
+            <p class="total-quantity" id="totalcount"
             data-totalcount-target="newTotalQuantity">
             <%= @products.sum(&:number) %> items
             </p>
-            <h4 class="first-total"
-            data-totalcount-target="subtotal">$
-              <% subTotal = 0 %>
-              <% @products.each do |product| %>
-                <% subTotal += product.price.to_i * product.number %>
-              <% end %>
-              <%= subTotal %>
+            <h4 class="first-total" id="totalPrice"
+            data-totalcount-target="subtotal">
+            <% subTotal = @products.sum { |product| product.price.to_i * product.number.to_i } %>
+              $<%= subTotal %>
             </h4>
           </div>
 
@@ -102,8 +54,7 @@
         <div><hr></div>
         <div class="total">
           <h4>Total</h4>
-          <h2 class="total-price"
-          data-totalcount-target="subtotal finaltotal" >$<%= subTotal -25 %></h2>
+          <h2 class="total-price" id="cart-total totalPrice">$<%= subTotal - 25 %></h2>
         </div>
       </div>
 

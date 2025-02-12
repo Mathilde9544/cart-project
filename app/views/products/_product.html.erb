@@ -1,0 +1,35 @@
+<li id="<%= dom_id(product) %>" class="listed-item"
+  data-controller="count"
+  data-count-product-id-value="<%= product.id %>"
+  data-count-quantity-value = <%= product.number %>
+  data-count-price-value = <%= product.price.to_i %>
+  data-totalcount-productquantity-value = "<%= product.number %>">
+  <div class="item">
+    <div class="item-description">
+      <img class="product-image" src="<%= asset_url(product.image_url)%>" alt="<%=product.name%>">
+      <h5 class="product-name"><%=product.name%></h5>
+    </div>
+
+    <div class="quantity">
+      <%= button_to substract_product_path(product), method: :patch, remote: true, class: "minus-div" do %>
+        <i class="fa-solid fa-minus minus"></i>
+      <% end %>
+
+      <div>
+        <h4 class="quantity-number">
+          <%= product.number %>
+        </h4>
+      </div>
+      <%= button_to add_product_path(product), method: :patch, remote: true, class: "plus-div" do %>
+        <i class="fa-solid fa-plus plus"></i>
+      <% end %>
+    </div>
+
+    <h4 class="product-price">
+      $<%= product.price.to_i %>
+    </h4>
+  </div>
+  <%= button_to destroy_path(product), method: :delete, remote: true, class:"trash trash-button p-0 border-0 bg-transparent" do %>
+    <i class="fa-regular fa-trash-can trash"></i>
+  <% end %>
+</li>
